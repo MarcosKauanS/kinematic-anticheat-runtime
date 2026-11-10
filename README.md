@@ -5,6 +5,9 @@
 
 ---
 
+> [!NOTE]
+> **Production Status & Intellectual Property Notice:**  
+> This repository is an **architectural case study and algorithmic specification** derived from an active, high-tickrate game server anticheat runtime (protecting 200+ concurrent players per node across thousands of daily competitive engagements). In accordance with game security best practices, live detection weights, proprietary heuristic tripwires, and internal network payloads are strictly omitted to prevent adversarial counter-adaptation.
 ## Executive Summary
 
 Client-side game security (kernel drivers, intrusive OS hooks) faces severe operational resistance: platform instability, hypervisor-level bypasses (DMA), and user privacy concerns. Conversely, server-side detection often degrades simulation performance when introducing heavy external machine learning runtimes (ONNX/LibTorch) into the game loop.

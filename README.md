@@ -71,8 +71,8 @@ Benchmarked across competitive combat telemetry datasets and high-frequency simu
 
 - **Inference Evaluation Latency:** `~420 nanoseconds` per complete 25-tree evaluation.
 - **Model Classification Power:** `0.8890 ROC-AUC` (92.94% TPR at 0.70 threshold) cross-validated across 10,412 annotated telemetry samples (27 distinct groups).
-- **False-Positive Ratio (FPR):** `< 1.8%` under proportional session decay.
-- **Server Tick Stability:** Maintained `20.0 / 20.0 TPS` at 200+ concurrent players with zero tick drops.
+- **False-Positive Mitigation:** 4.27% FPR baseline at single-sample ML level, reduced to **near-zero empirical false bans** via stateful 600-action session windows (~30s sustained cadence guardrail).
+- **Server Tick Stability:** Maintained 20.0 / 20.0 TPS under high-frequency combat stress tests with zero tick drops.
 - **Heap Overhead:** `0 bytes` per evaluation (stack and register allocated).
 
 ---

@@ -7,7 +7,7 @@
 
 > [!NOTE]
 > **Architecture Case Study & Intellectual Property Notice:**  
-> This repository is an **architectural case study and algorithmic specification** engineered for the upcoming [IzuRBW Network](https://github.com/izurbw) competitive infrastructure. The underlying models and heuristics were benchmarked across an annotated dataset of **10,412 real-world combat telemetry samples**. In accordance with game security best practices, live detection weights, proprietary heuristic tripwires, and internal network payloads are strictly omitted to prevent adversarial counter-adaptation prior to public network deployment.
+> This repository is an **architectural case study and algorithmic specification** engineered for a private, high-tickrate competitive multiplayer gaming network. The underlying models and heuristics were benchmarked across an annotated dataset of **10,412 real-world combat telemetry samples**. In accordance with game security best practices, live detection weights, proprietary heuristic tripwires, and internal network payloads are strictly omitted to prevent adversarial counter-adaptation prior to public network deployment.
 ## Executive Summary
 
 Client-side game security (kernel drivers, intrusive OS hooks) faces severe operational resistance: platform instability, hypervisor-level bypasses (DMA), and user privacy concerns. Conversely, server-side detection often degrades simulation performance when introducing heavy external machine learning runtimes (ONNX/LibTorch) into the game loop.

@@ -8,7 +8,7 @@
 
 > [!NOTE]
 > **Production Context & Sanitization Notice:**  
-> This whitepaper details real-world telemetry and machine learning architectures engineered for the upcoming [IzuRBW Network](https://github.com/izurbw) competitive infrastructure. The models and heuristics were benchmarked across an annotated dataset of **10,412 real-world combat telemetry samples**. In accordance with game security best practices, live detection weights, internal network payloads, and heuristic tripwires are strictly omitted to prevent adversarial counter-adaptation prior to public network deployment.
+> This whitepaper details real-world telemetry and machine learning architectures engineered for a private, high-tickrate competitive multiplayer gaming network. The models and heuristics were benchmarked across an annotated dataset of **10,412 real-world combat telemetry samples**. In accordance with game security best practices, live detection weights, internal network payloads, and heuristic tripwires are strictly omitted to prevent adversarial counter-adaptation prior to public network deployment.
 ## 1. Executive Summary & Problem Scope
 
 Server-side cheat detection in high-tickrate competitive environments operates under severe real-time constraints:

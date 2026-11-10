@@ -184,7 +184,7 @@ Single-sample ML predictions are statistically fragile (the raw Scikit-Learn cla
 
 To eliminate false bans entirely, the production runtime implements a **two-tier defense-in-depth pipeline**:
 1. **Instantaneous Telemetry Inference:** Evaluates instantaneous kinematic features through the 25-tree compiled ensemble.
-2. **Stateful Session Window ( = 600$ Actions):** Enforcement triggers require continuous anomaly accumulation over a **600-action moving horizon (~30 seconds of active engagement)**.
+2. **Stateful Session Window (`N = 600` Actions):** Enforcement triggers require continuous anomaly accumulation over a **600-action moving horizon (~30 seconds of active engagement)**.
 3. **Asymmetric Proportional Decay:** Legitimate cadences trigger an **accelerated 1.8x decay multiplier**, instantly draining accumulated buffer during pauses or human reset intervals.
 * Predictions above the neutral threshold (.72) add linearly to the buffer.
 * Predictions below the threshold decay at an **accelerated rate (1.8x multiplier)**.

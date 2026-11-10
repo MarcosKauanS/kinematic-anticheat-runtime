@@ -8,7 +8,7 @@
 
 > [!NOTE]
 > **Production Context & Sanitization Notice:**  
-> This whitepaper details real-world telemetry and machine learning architectures engineered for the upcoming [IzuRBW Network](https://github.com/izurbw) competitive infrastructure. The models and heuristics were benchmarked across an annotated dataset of **11,760+ real-world combat telemetry samples**. In accordance with game security best practices, live detection weights, internal network payloads, and heuristic tripwires are strictly omitted to prevent adversarial counter-adaptation prior to public network deployment.
+> This whitepaper details real-world telemetry and machine learning architectures engineered for the upcoming [IzuRBW Network](https://github.com/izurbw) competitive infrastructure. The models and heuristics were benchmarked across an annotated dataset of **10,412 real-world combat telemetry samples**. In accordance with game security best practices, live detection weights, internal network payloads, and heuristic tripwires are strictly omitted to prevent adversarial counter-adaptation prior to public network deployment.
 ## 1. Executive Summary & Problem Scope
 
 Server-side cheat detection in high-tickrate competitive environments operates under severe real-time constraints:
@@ -107,7 +107,7 @@ Invoking Python wrappers or bridging native C++ runtimes via JNI creates devasta
 * Thread context switching and garbage collection overhead: 1–15 ms during peak loads.
 
 ### The Solution: Scikit-Learn to Java Bytecode Transpiler
-The MLOps pipeline trains the Random Forest in Python using scikit-learn and GridSearchCV on an annotated dataset of **11,760+ telemetry rows**. 
+The MLOps pipeline trains the Random Forest in Python using scikit-learn and GridSearchCV on an annotated dataset of **10,412 telemetry rows**. 
 
 Once the champion hyperparameters are locked (ROC-AUC .9084), an automated transpiler converts the trained ensemble directly into **static nested conditional branches (if/else)** in pure Java:
 
@@ -173,7 +173,8 @@ The runtime was benchmarked across high-frequency combat telemetry datasets and 
 
 | Metric | Target Specification | Observed Production Value |
 | :--- | :--- | :--- |
-| **Model ROC-AUC Score** | > 0.85 | **0.9084** (Cross-Validated) |
+| **Model ROC-AUC Score** | > 0.85 | **0.8890** (StratifiedGroupKFold across 27 player groups) |
+| **True Positive Detection Rate (TPR)** | > 90.0% | **92.94%** (6,170 / 6,639 cheats detected at >= 0.70) |
 | **False-Positive Rate (FPR)** | < 3.0% | **< 1.8%** (Under Proportional Decay) |
 | **Mean Evaluation Latency** | < 10.0 us | **~420 nanoseconds** per check |
 | **Tick Overhead (TPS Impact)** | 0.00 TPS drop | **20.0 / 20.0 Stable** under high-frequency combat stress tests |

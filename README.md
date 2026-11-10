@@ -7,13 +7,13 @@
 
 > [!NOTE]
 > **Architecture Case Study & Intellectual Property Notice:**  
-> This repository is an **architectural case study and algorithmic specification** engineered for the upcoming [IzuRBW Network](https://github.com/izurbw) competitive infrastructure. The underlying models and heuristics were benchmarked across an annotated dataset of **11,760+ real-world combat telemetry samples**. In accordance with game security best practices, live detection weights, proprietary heuristic tripwires, and internal network payloads are strictly omitted to prevent adversarial counter-adaptation prior to public network deployment.
+> This repository is an **architectural case study and algorithmic specification** engineered for the upcoming [IzuRBW Network](https://github.com/izurbw) competitive infrastructure. The underlying models and heuristics were benchmarked across an annotated dataset of **10,412 real-world combat telemetry samples**. In accordance with game security best practices, live detection weights, proprietary heuristic tripwires, and internal network payloads are strictly omitted to prevent adversarial counter-adaptation prior to public network deployment.
 ## Executive Summary
 
 Client-side game security (kernel drivers, intrusive OS hooks) faces severe operational resistance: platform instability, hypervisor-level bypasses (DMA), and user privacy concerns. Conversely, server-side detection often degrades simulation performance when introducing heavy external machine learning runtimes (ONNX/LibTorch) into the game loop.
 
 This project implements a **zero-dependency, server-side behavioral telemetry runtime** designed to detect adversarial automation and input macros in real time:
-- **Zero-Allocation ML Inference:** Transpiles an optimized 25-tree Random Forest (`ROC-AUC 0.9084`) directly into native JVM conditional bytecode, executing full evaluations in **sub-500 nanoseconds** with zero heap allocations.
+- **Zero-Allocation ML Inference:** Transpiles an optimized 25-tree Random Forest (`ROC-AUC 0.8890`) directly into native JVM conditional bytecode, executing full evaluations in **sub-500 nanoseconds** with zero heap allocations.
 - **11-Dimensional Kinematic Vector:** Extracts higher-order statistical moments (Shannon Entropy, Skewness, Kurtosis, Lag-1 Autocorrelation, and Physiological Fatigue Ratios) across sliding interaction windows.
 - **Protocol & Network Hardening:** Filters TCP packet compression artifacts and deduplicates Netty animation packets during active geometry raycasting to eliminate false positives.
 
@@ -70,7 +70,7 @@ flowchart TD
 Benchmarked across competitive combat telemetry datasets and high-frequency simulation runs:
 
 - **Inference Evaluation Latency:** `~420 nanoseconds` per complete 25-tree evaluation.
-- **Model Classification Power:** `0.9084 ROC-AUC` cross-validated across 11,760+ annotated combat telemetry rows.
+- **Model Classification Power:** `0.8890 ROC-AUC` (92.94% TPR at 0.70 threshold) cross-validated across 10,412 annotated telemetry samples (27 distinct groups).
 - **False-Positive Ratio (FPR):** `< 1.8%` under proportional session decay.
 - **Server Tick Stability:** Maintained `20.0 / 20.0 TPS` at 200+ concurrent players with zero tick drops.
 - **Heap Overhead:** `0 bytes` per evaluation (stack and register allocated).

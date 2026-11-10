@@ -45,8 +45,8 @@ flowchart TD
     subgraph ActionDecay["4. Temporal Buffer & Mitigation"]
         PROB --> SESS[600-Action Window Integrator]
         SESS --> DECAY{Proportional Decay Engine}
-        DECAY -->|P >= 0.72| RISE[Buffer Accumulation]
-        DECAY -->|P < 0.72| DROP[Accelerated Decay: 1.8x]
+        DECAY -->|P >= NeutralThreshold| RISE[Buffer Accumulation]
+        DECAY -->|P < NeutralThreshold| DROP[Accelerated Decay: 1.8x]
         RISE --> FLAG[Deterministic Mitigation Trigger]
     end
 ```

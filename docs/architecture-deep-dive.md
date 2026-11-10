@@ -32,7 +32,7 @@ Primitive macro detectors only evaluate the arithmetic mean $\mu$. However, huma
 The runtime extracts an **11-dimensional feature tensor** across rolling sliding windows:
 
 `
-[ stdDev, deltaVarSum, cv, skewness, kurtosis, fingerDiff, ac1, entropy, long_std, long_dvar, fatigue_ratio ]
+[ Feature_Group_Dispersion, Feature_Group_HigherMoments, Feature_Group_Entropy, Feature_Group_Autocorrelation, Feature_Group_FatigueRatio ]
 `
 
 ### Mathematical Definitions
@@ -112,32 +112,34 @@ The MLOps pipeline trains the Random Forest in Python using scikit-learn and Gri
 Once the champion hyperparameters are locked (ROC-AUC .9084), an automated transpiler converts the trained ensemble directly into **static nested conditional branches (if/else)** in pure Java:
 
 `java
-// Pure static compilation: zero object allocations, zero heap pressure
-public static double evaluateCheatProbability(
-    double stdDev, double deltaVar, double cv, double skewness, 
-    double kurtosis, double fingerDiff, double ac1, double entropy, 
-    double long_std, double long_dvar, double fatigue_ratio
-) {
-    double s1 = tree_1(stdDev, deltaVar, cv, skewness, kurtosis, fingerDiff, ac1, entropy, long_std, long_dvar, fatigue_ratio);
-    double s2 = tree_2(stdDev, deltaVar, cv, skewness, kurtosis, fingerDiff, ac1, entropy, long_std, long_dvar, fatigue_ratio);
-    // ... evaluates across 25 optimized trees
-    return (s1 + s2 + ... + s25) / 25.0;
+```java
+// Sanitized architectural pattern: zero-allocation static conditional branching
+public static double evaluateAnomalyEnsemble(double[] featureTensor) {
+    double accumulatedScore = 0.0;
+    // Unrolled static evaluation across 25 compiled decision trees
+    accumulatedScore += evaluateTree_01(featureTensor);
+    accumulatedScore += evaluateTree_02(featureTensor);
+    // ... evaluates across 25 compiled trees (zero heap allocations)
+    return accumulatedScore / TOTAL_TREES;
 }
 
-private static double tree_1(...) {
-    if (deltaVar <= 30.650001) {
-        if (fatigue_ratio <= 0.275405) {
-            return (long_dvar <= 2.629744) ? (kurtosis <= 3.265 ? 0.0 : 0.055556) : 0.413793;
+// Illustrative branch topology (production split constants strictly omitted)
+private static double evaluateTree_01(double[] x) {
+    if (x[FEATURE_TEMPORAL_VARIANCE] <= EPSILON_ALPHA) {
+        if (x[FEATURE_FATIGUE_RATIO] <= EPSILON_BETA) {
+            return (x[FEATURE_LONG_DISPERSION] <= EPSILON_GAMMA) 
+                ? (x[FEATURE_KURTOSIS] <= THRESHOLD_K ? SCORE_LEGIT : SCORE_SUSPECT) 
+                : SCORE_ANOMALY;
         } else {
-            // Hot branch evaluates directly in CPU L1 instruction cache
-            if (entropy <= 1.010964) {
-                return (stdDev <= 14.275) ? 1.0 : 0.15625;
-            }
+            // Hot branch inlined by JVM HotSpot C2 compiler into L1 instruction cache
+            if (x[FEATURE_SHANNON_ENTROPY] <= THRESHOLD_H) {
+                return (x[FEATURE_STD_DEV] <= THRESHOLD_S) ? SCORE_CONFIRMED_MACRO : SCORE_MARGINAL;
+            } 
         }
     }
-    return 0.0;
+    return SCORE_BASELINE;
 }
-`
+```
 
 #### Performance Gains of Bytecode Branching
 - **Execution Time:** Less than **500 nanoseconds** per complete 25-tree evaluation.

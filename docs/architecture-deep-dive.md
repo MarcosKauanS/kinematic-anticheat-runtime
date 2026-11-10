@@ -8,7 +8,7 @@
 
 > [!NOTE]
 > **Production Context & Sanitization Notice:**  
-> This whitepaper details real-world telemetry and machine learning architectures operating in active production game servers (protecting 200+ concurrent players per node). In accordance with game security best practices, live detection weights, internal network payloads, and heuristic tripwires are strictly omitted to prevent adversarial counter-adaptation.
+> This whitepaper details real-world telemetry and machine learning architectures engineered for the upcoming [IzuRBW Network](https://github.com/izurbw) competitive infrastructure. The models and heuristics were benchmarked across an annotated dataset of **11,760+ real-world combat telemetry samples**. In accordance with game security best practices, live detection weights, internal network payloads, and heuristic tripwires are strictly omitted to prevent adversarial counter-adaptation prior to public network deployment.
 ## 1. Executive Summary & Problem Scope
 
 Server-side cheat detection in high-tickrate competitive environments operates under severe real-time constraints:
@@ -169,14 +169,14 @@ The dataset explicitly incorporates **hard negative samples** of elite human pla
 
 ## 6. Real-Time Telemetry & Production Benchmarks
 
-The runtime operates in live competitive environments processing millions of real-time interactions:
+The runtime was benchmarked across high-frequency combat telemetry datasets and continuous simulation loops:
 
 | Metric | Target Specification | Observed Production Value |
 | :--- | :--- | :--- |
 | **Model ROC-AUC Score** | > 0.85 | **0.9084** (Cross-Validated) |
 | **False-Positive Rate (FPR)** | < 3.0% | **< 1.8%** (Under Proportional Decay) |
 | **Mean Evaluation Latency** | < 10.0 us | **~420 nanoseconds** per check |
-| **Tick Overhead (TPS Impact)** | 0.00 TPS drop | **20.0 / 20.0 Stable** at 200+ concurrent players |
+| **Tick Overhead (TPS Impact)** | 0.00 TPS drop | **20.0 / 20.0 Stable** under high-frequency combat stress tests |
 | **Heap Memory Overhead** | Zero transient allocations | **0 bytes per evaluation** |
 
 ---

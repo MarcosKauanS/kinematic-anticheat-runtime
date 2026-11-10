@@ -6,8 +6,8 @@
 ---
 
 > [!NOTE]
-> **Production Status & Intellectual Property Notice:**  
-> This repository is an **architectural case study and algorithmic specification** derived from an active, high-tickrate game server anticheat runtime (protecting 200+ concurrent players per node across thousands of daily competitive engagements). In accordance with game security best practices, live detection weights, proprietary heuristic tripwires, and internal network payloads are strictly omitted to prevent adversarial counter-adaptation.
+> **Architecture Case Study & Intellectual Property Notice:**  
+> This repository is an **architectural case study and algorithmic specification** engineered for the upcoming [IzuRBW Network](https://github.com/izurbw) competitive infrastructure. The underlying models and heuristics were benchmarked across an annotated dataset of **11,760+ real-world combat telemetry samples**. In accordance with game security best practices, live detection weights, proprietary heuristic tripwires, and internal network payloads are strictly omitted to prevent adversarial counter-adaptation prior to public network deployment.
 ## Executive Summary
 
 Client-side game security (kernel drivers, intrusive OS hooks) faces severe operational resistance: platform instability, hypervisor-level bypasses (DMA), and user privacy concerns. Conversely, server-side detection often degrades simulation performance when introducing heavy external machine learning runtimes (ONNX/LibTorch) into the game loop.
@@ -67,7 +67,7 @@ flowchart TD
 
 ## Production Scale & Performance Benchmarks
 
-Deployed in live competitive environments processing real-time telemetry across thousands of player sessions:
+Benchmarked across competitive combat telemetry datasets and high-frequency simulation runs:
 
 - **Inference Evaluation Latency:** `~420 nanoseconds` per complete 25-tree evaluation.
 - **Model Classification Power:** `0.9084 ROC-AUC` cross-validated across 11,760+ annotated combat telemetry rows.

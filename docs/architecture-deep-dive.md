@@ -6,6 +6,9 @@
 
 ---
 
+> [!NOTE]
+> **Production Context & Sanitization Notice:**  
+> This whitepaper details real-world telemetry and machine learning architectures operating in active production game servers (protecting 200+ concurrent players per node). In accordance with game security best practices, live detection weights, internal network payloads, and heuristic tripwires are strictly omitted to prevent adversarial counter-adaptation.
 ## 1. Executive Summary & Problem Scope
 
 Server-side cheat detection in high-tickrate competitive environments operates under severe real-time constraints:

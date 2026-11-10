@@ -14,7 +14,7 @@ Client-side game security (kernel drivers, intrusive OS hooks) faces severe oper
 
 This project implements a **zero-dependency, server-side behavioral telemetry runtime** designed to detect adversarial automation and input macros in real time:
 - **Zero-Allocation ML Inference:** Transpiles an optimized 25-tree Random Forest (`ROC-AUC 0.8890`) directly into native JVM conditional bytecode, executing full evaluations in **sub-500 nanoseconds** with zero heap allocations.
-- **11-Dimensional Kinematic Vector:** Extracts higher-order statistical moments (Shannon Entropy, Skewness, Kurtosis, Lag-1 Autocorrelation, and Physiological Fatigue Ratios) across sliding interaction windows.
+- **11-Dimensional Kinematic Vector:** Extracts higher-order statistical moments, information-theoretic entropy, sequential autocorrelation, and multi-horizon fatigue ratios across sliding interaction windows.
 - **Protocol & Network Hardening:** Filters TCP packet compression artifacts and deduplicates Netty animation packets during active geometry raycasting to eliminate false positives.
 
 > 📄 **Looking for the complete technical specification?**  
@@ -58,7 +58,7 @@ flowchart TD
 | Subsystem | Technical Implementation | Threat Mitigated / Purpose |
 | :--- | :--- | :--- |
 | **Pure-Bytecode ML Inference** | 25-tree Random Forest transpiled into nested static `if/else` bytecode branches. | Eliminates JNI marshalling and garbage collection pauses, enabling sub-microsecond evaluation inside hot game loops. |
-| **Kinematic Feature Vector** | 11-dimensional tensor capturing Shannon Entropy, Lag-1 Autocorrelation, and Fatigue Ratio. | Detects pseudo-random uniform distributions and repetitive loops in modern stealth macros. |
+| **Kinematic Feature Vector** | 11-dimensional tensor capturing multi-scale statistical moments, information entropy, and fatigue dynamics. | Detects pseudo-random uniform distributions and repetitive loops in modern stealth macros. |
 | **Netty Protocol Deduplication** | Correlates client arm swings against active world interaction coordinates and tick indexes. | Prevents artificial CPS inflation and double-click artifacts during geometry mining. |
 | **TCP Compression Filtering** | Discards inter-packet intervals $\Delta t < 10.0\text{ ms}$ caused by burst network retransmission. | Eliminates false-positive variance collapses caused by client-side Wi-Fi and network jitter. |
 | **Proportional Temporal Decay** | Session buffer requiring sustained anomalies with an accelerated 1.8x decay for legit cadences. | Prevents false bans from isolated human motor bursts (Butterfly and Drag clicking). |

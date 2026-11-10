@@ -21,47 +21,36 @@ Server-side cheat detection in high-tickrate competitive environments operates u
 
 ---
 
-## 2. Threat Modeling & Mathematical Feature Extraction
+## 2. Threat Modeling & Multi-Scale Feature Engineering
 
-A client interaction stream is represented as a discrete sequence of inter-packet intervals:
+A client interaction stream is represented as a discrete, continuous temporal series of inter-packet event deltas:
 
+```math
 \Delta t_i = t_i - t_{i-1}, \quad \text{where } \Delta t_i \in \mathbb{R}^+
+```
 
-Primitive macro detectors only evaluate the arithmetic mean $\mu$. However, human motor physiology exhibits specific kinematic constraints (finger stiffness, mechanical switch debounce friction, nerve-fatigue variance) that synthetic algorithms fail to replicate holistically.
+Primitive automation detectors rely exclusively on rudimentary central tendency metrics (e.g., arithmetic mean $\mu$ or raw CPS counters). However, modern stealth automation injects synthetic Gaussian jitter and randomized delays to masquerade as human input.
 
-The runtime extracts an **11-dimensional feature tensor** across rolling sliding windows:
+Human motor neuro-kinematics exhibits strict physical constraints: mechanical switch debounce bounce, neuromuscular recovery latency, and physiological fatigue drift across sustained engagements. 
 
-`
-[ Feature_Group_Dispersion, Feature_Group_HigherMoments, Feature_Group_Entropy, Feature_Group_Autocorrelation, Feature_Group_FatigueRatio ]
-`
+To model this distinction without exposing proprietary decision parameters, the runtime projects client telemetry into a **sanitized 11-dimensional latent feature space** grouped across five core mathematical domains:
 
-### Mathematical Definitions
+### High-Order Feature Domains
 
-1. **Information Entropy (Shannon Entropy with 16 Bins):**  
-   Quantifies the pure uncertainty of the timing distribution. Pseudo-random generators in cheats attempt to simulate variance by pulling from uniform distributions, producing unnaturally high or flat entropy profiles:
-   H(X) = -\sum_{i=1}^{k} P(x_i) \log_2 P(x_i)
-
-2. **Skewness (Third Standardized Moment):**  
-   Measures distributional asymmetry. Human clicking distributions naturally skew right due to physical recovery mechanics between finger strokes:
-   \tilde{\mu}_3 = \frac{\frac{1}{N}\sum_{i=1}^N (x_i - \mu)^3}{\sigma^3}
-
-3. **Kurtosis (Fourth Standardized Moment):**  
-   Detects the peakedness and tail weight of the distribution. Algorithmic loops generate distinct platykurtic or leptokurtic signatures:
-   \tilde{\mu}_4 = \frac{\frac{1}{N}\sum_{i=1}^N (x_i - \mu)^4}{\sigma^4}
-
-4. **Lag-1 Autocorrelation ($):**  
-   Evaluates serial dependency between consecutive intervals. Macros running internal state machines or randomized timing loops reveal strong positive or negative lag-1 auto-dependencies:
-   r_1 = \frac{\sum_{i=1}^{N-1} (x_i - \mu)(x_{i+1} - \mu)}{\sum_{i=1}^N (x_i - \mu)^2}
-
-5. **Physiological Fatigue Ratio:**  
-   Ratios long-term variance (60-interval window) against instantaneous short-term variance (20-interval window). Humans experience muscle fatigue during extended engagements, causing variance expansion; automated bots maintain flat variance profiles:
-   \Phi = \frac{\sigma_{\text{long}}}{\sigma_{\text{short}} + \epsilon}
-
----
+1. **Higher-Order Statistical Moments:**  
+   Captures distributional tail weight, kurtosis characteristics, and asymmetry (skewness) to differentiate biological recovery strokes from algorithmic uniform delay generators.
+2. **Information-Theoretic Dispersion:**  
+   Measures structural uncertainty and state entropy across discretized probability bins, detecting pseudo-random generators attempting to synthesize artificial variance.
+3. **Sequential Temporal Autocorrelation:**  
+   Evaluates sequential lag dependencies (`r_k`) between consecutive intervals to uncover periodic loops, deterministic state machines, and hardware macro timing signatures.
+4. **Normalized Multi-Scale Variance:**  
+   Analyzes coefficient of variation and successive difference variances across adaptive sliding horizons to isolate local cadence anomalies from global movement styles.
+5. **Multi-Horizon Fatigue Dynamics:**  
+   Ratios long-term baseline variance against instantaneous burst windows to model biological muscle fatigue decay, which synthetic automation tools inherently fail to sustain.
 
 ## 3. High-Level Telemetry & ML Runtime Architecture
 
-`mermaid
+```mermaid
 flowchart TD
     subgraph NettyLayer["1. High-Throughput Packet Layer (Netty IO)"]
         PKT[Incoming Client Packets] --> DEDUP[Network-Tick Deduplicator]
@@ -94,7 +83,7 @@ flowchart TD
         THRESH -- No --> LOG[Telemetry Stream / Staff Observability]
         BUF_DEC --> LOG
     end
-`
+```
 
 ---
 
@@ -111,7 +100,6 @@ The MLOps pipeline trains the Random Forest in Python using scikit-learn and Gri
 
 Once the champion hyperparameters are locked (ROC-AUC .9084), an automated transpiler converts the trained ensemble directly into **static nested conditional branches (if/else)** in pure Java:
 
-`java
 ```java
 // Sanitized architectural pattern: zero-allocation static conditional branching
 public static double evaluateAnomalyEnsemble(double[] featureTensor) {

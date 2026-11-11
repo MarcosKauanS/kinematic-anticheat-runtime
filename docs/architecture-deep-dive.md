@@ -98,7 +98,7 @@ Invoking Python wrappers or bridging native C++ runtimes via JNI creates devasta
 ### The Solution: Scikit-Learn to Java Bytecode Transpiler
 The MLOps pipeline trains the Random Forest in Python using scikit-learn and GridSearchCV on an annotated dataset of **10,412 telemetry rows**. 
 
-Once the champion hyperparameters are locked (ROC-AUC .9084), an automated transpiler converts the trained ensemble directly into **static nested conditional branches (if/else)** in pure Java:
+Once the champion hyperparameters are locked (ROC-AUC 0.8890), an automated transpiler converts the trained ensemble directly into **static nested conditional branches (if/else)** in pure Java:
 
 ```java
 // Sanitized architectural pattern: zero-allocation static conditional branching
